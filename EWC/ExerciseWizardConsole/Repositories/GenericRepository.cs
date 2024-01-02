@@ -3,7 +3,8 @@ using ExerciseWizardConsole.Entities;
 
 namespace ExerciseWizardConsole.Repositories
 {
-    public class GenericRepository<T> where T : class, IEntity, new()
+    public class GenericRepository<T>
+        where T : class, IEntity, new()
     {
         private readonly List<T> _items = new();
 
