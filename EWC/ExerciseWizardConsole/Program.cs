@@ -2,6 +2,7 @@
 using ExerciseWizardConsole.Repositories;
 using ExerciseWizardConsole.Entities;
 using ExerciseWizardConsole.Data;
+using Microsoft.VisualBasic;
 
 // var questionRepository = new GenericRepository<Question>();
 
@@ -17,10 +18,15 @@ using ExerciseWizardConsole.Data;
 // });
 // questionRepositoryTest.Save();
 
-var sqlRepo = new SqlRepository<Question>(new EwcDBContext());
-sqlRepo.Add(new Question { Content = "Kto dostał nagrobę Nobla w 1921r.?" });
-sqlRepo.Add(new Question { Content = "Za co dostał nagrodę Noba Max Planck?" });
-sqlRepo.Save();
+var questionRepo = new SqlRepository<Question>(new EwcDBContext());
+questionRepo.Add(new Question { Content = "Za co dostał nagrodę Noba Max Planck?" });
+questionRepo.Add(new Question { Content = "Kto dostał nagrobę Nobla w 1921r.?" });
+questionRepo.Save();
 
-var qus = sqlRepo.GetById(2);
-Console.WriteLine(qus.ToString());
+GetQuestById(questionRepo);
+
+static void GetQuestById(IRepository<Question> questionRepo)
+{
+    var question = questionRepo.GetById(2);
+    Console.WriteLine(question.ToString());
+}
