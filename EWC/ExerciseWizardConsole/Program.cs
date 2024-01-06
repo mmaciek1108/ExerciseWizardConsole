@@ -2,31 +2,33 @@
 using ExerciseWizardConsole.Repositories;
 using ExerciseWizardConsole.Entities;
 using ExerciseWizardConsole.Data;
-using Microsoft.VisualBasic;
-
-// var questionRepository = new GenericRepository<Question>();
-
-// var questionRepositoryTest = new GenericRepository<MultipleAnswerTests>();
-
-// questionRepository.Add(new Question { Content = "Jak na imię miał Napoleon?" });
-// questionRepository.Save();
-
-// questionRepositoryTest.Add(new MultipleAnswerTests
-// {
-//     Content = "Pytanie testowe",
-//     MultipleAnswer = "NowaWartosc"
-// });
-// questionRepositoryTest.Save();
 
 var questionRepo = new SqlRepository<Question>(new EwcDBContext());
-questionRepo.Add(new Question { Content = "Za co dostał nagrodę Noba Max Planck?" });
-questionRepo.Add(new Question { Content = "Kto dostał nagrobę Nobla w 1921r.?" });
-questionRepo.Save();
+AddQuestions(questionRepo);
+AddTests(questionRepo);
+WriteAllToConsole(questionRepo);
 
-GetQuestById(questionRepo);
-
-static void GetQuestById(IRepository<Question> questionRepo)
+static void AddQuestions(IRepository<Question> questionRepository)
 {
-    var question = questionRepo.GetById(2);
-    Console.WriteLine(question.ToString());
+    questionRepository.Add(new Question { Content = "Za co dostał nagrodę Nobla Max Planck?" });
+    questionRepository.Add(new Question { Content = "Kto dostał nagrobę Nobla w 1921r.?" });
+    questionRepository.Save();
+}
+static void AddTests(IWriteRepository<MultipleAnswerTests> multipleTestRepository)
+{
+    multipleTestRepository.Add(new MultipleAnswerTests
+    {
+        Content = "Fala świetlna to fala elektromagnetyczna",
+        MultipleAnswer = "A. Tak \n B. Nie"
+    });
+    multipleTestRepository.Save();
+}
+
+static void WriteAllToConsole(IReadRepository<IEntity> repository)
+{
+    var items = repository.GetAll();
+    foreach (var item in items)
+    {
+        Console.WriteLine(item);
+    }
 }
