@@ -14,12 +14,13 @@ static void AddQuestions(IRepository<Question> questionRepository)
     questionRepository.Add(new Question { Content = "Kto dostał nagrobę Nobla w 1921r.?" });
     questionRepository.Save();
 }
-static void AddTests(IWriteRepository<MultipleAnswerTests> multipleTestRepository)
+static void AddTests(IWriteRepository<MultipleAnswerTest> multipleTestRepository)
 {
-    multipleTestRepository.Add(new MultipleAnswerTests
+    multipleTestRepository.Add(new MultipleAnswerTest
     {
         Content = "Fala świetlna to fala elektromagnetyczna",
-        MultipleAnswer = "A. Tak \n B. Nie"
+        Answer1 = "Tak",
+        Answer2 = "Nie"
     });
     multipleTestRepository.Save();
 }
